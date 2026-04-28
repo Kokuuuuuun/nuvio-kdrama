@@ -1,0 +1,12 @@
+{
+  "name": "nuvio-kdramas",
+  "version": "1.0.0",
+  "description": "Plugin para Nuvio con múltiples fuentes de K-Dramas en español",
+  "main": "manifest.json",
+  "scripts": {
+    "test": "echo \"Test providers\""
+  },
+  "keywords": ["nuvio", "kdramas", "doramas", "streaming", "español"],
+  "author": "Nuvio KDramas Plugin",
+  "license": "MIT"
+}

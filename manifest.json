@@ -1,0 +1,242 @@
+{
+  "name": "KDramas Providers",
+  "version": "1.0.0",
+  "description": "Plugin para ver K-Dramas con múltiples fuentes en español",
+  "scrapers": [
+    {
+      "id": "doramasflix",
+      "name": "DoramasFlix",
+      "description": "K-Dramas, C-Dramas, J-Dramas y doramas tailandeses en Sub Español y Latino",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/doramasflix.js",
+      "enabled": true,
+      "contentLanguage": ["es"],
+      "logo": "https://doramasflix.in/favicon.ico"
+    },
+    {
+      "id": "doramasmp4",
+      "name": "DoramasMP4",
+      "description": "Doramas online gratis en MP4 - Kdramas, Cdramas, Jdramas y tailandeses",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/doramasmp4.js",
+      "enabled": true,
+      "contentLanguage": ["es"],
+      "logo": "https://doramasmp4.io/favicon1.ico"
+    },
+    {
+      "id": "pandrama",
+      "name": "Pandrama TV",
+      "description": "Dramas asiáticos online gratis en Español Latino y Subtitulado",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/pandrama.js",
+      "enabled": true,
+      "contentLanguage": ["es"],
+      "logo": "https://pandrama.tv/favicon.ico"
+    },
+    {
+      "id": "doramasyt",
+      "name": "DoramasYT",
+      "description": "Doramas online gratis en HD con subtítulos en español",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/doramasyt.js",
+      "enabled": true,
+      "contentLanguage": ["es"],
+      "logo": "https://doramasyt.com/favicon.ico"
+    },
+    {
+      "id": "estrenosdoramas",
+      "name": "EstrenosDoramas",
+      "description": "Últimos estrenos de doramas online",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/estrenosdoramas.js",
+      "enabled": true,
+      "contentLanguage": ["es"]
+    },
+    {
+      "id": "doramasvip",
+      "name": "DoramasVIP",
+      "description": "Doramas exclusivos con subtítulos en español",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/doramasvip.js",
+      "enabled": true,
+      "contentLanguage": ["es"]
+    },
+    {
+      "id": "doramasgo",
+      "name": "DoramasGO",
+      "description": "Ver doramas online con subtítulos",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/doramasgo.js",
+      "enabled": true,
+      "contentLanguage": ["es"]
+    },
+    {
+      "id": "midoramafavorito",
+      "name": "Mi Dorama Favorito",
+      "description": "App para ver doramas en español gratis",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/midoramafavorito.js",
+      "enabled": true,
+      "contentLanguage": ["es"]
+    },
+    {
+      "id": "dramasparaver",
+      "name": "DramasParaVer",
+      "description": "Doramas coreanos, chinos y tailandeses en español",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/dramasparaver.js",
+      "enabled": true,
+      "contentLanguage": ["es"]
+    },
+    {
+      "id": "doramasgratis",
+      "name": "DoramasGratis",
+      "description": "Doramas online gratis subtitulados en español",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/doramasgratis.js",
+      "enabled": true,
+      "contentLanguage": ["es"]
+    },
+    {
+      "id": "doramastv",
+      "name": "DoramasTV",
+      "description": "Ver doramas y series asiáticas online",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/doramastv.js",
+      "enabled": true,
+      "contentLanguage": ["es"]
+    },
+    {
+      "id": "kocowa",
+      "name": "KOCOWA+",
+      "description": "K-Dramas oficiales con subtítulos",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/kocowa.js",
+      "enabled": true,
+      "contentLanguage": ["es", "en"]
+    },
+    {
+      "id": "viki",
+      "name": "Viki",
+      "description": "Dramas asiáticos con subtítulos en múltiples idiomas",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/viki.js",
+      "enabled": true,
+      "contentLanguage": ["es", "en"]
+    },
+    {
+      "id": "iqiyi",
+      "name": "iQIYI",
+      "description": "K-Dramas con subtítulos en español",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/iqiyi.js",
+      "enabled": true,
+      "contentLanguage": ["es", "en"]
+    },
+    {
+      "id": "tubitv",
+      "name": "TubiTV",
+      "description": "K-Dramas gratis con subtítulos",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/tubitv.js",
+      "enabled": true,
+      "contentLanguage": ["es", "en"]
+    },
+    {
+      "id": "bilibili",
+      "name": "Bilibili",
+      "description": "K-Dramas y C-Dramas asiáticos",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/bilibili.js",
+      "enabled": true,
+      "contentLanguage": ["es", "en"]
+    },
+    {
+      "id": "dramanice",
+      "name": "DramaNice",
+      "description": "Doramas subtitulados en español",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/dramanice.js",
+      "enabled": true,
+      "contentLanguage": ["es"]
+    },
+    {
+      "id": "asiancrush",
+      "name": "AsianCrush",
+      "description": "Streaming de dramas asiáticos",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/asiancrush.js",
+      "enabled": true,
+      "contentLanguage": ["en", "es"]
+    },
+    {
+      "id": "dramacool",
+      "name": "DramaCool",
+      "description": "K-Dramas subtitulados populares",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/dramacool.js",
+      "enabled": true,
+      "contentLanguage": ["es", "en"]
+    },
+    {
+      "id": "gooddrama",
+      "name": "GoodDrama",
+      "description": "Doramas online gratis",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/gooddrama.js",
+      "enabled": true,
+      "contentLanguage": ["es"]
+    },
+    {
+      "id": "dramago",
+      "name": "DramaGo",
+      "description": "Ver doramas subtitulados",
+      "version": "1.0.0",
+      "author": "Nuvio KDramas Plugin",
+      "supportedTypes": ["tv"],
+      "filename": "providers/dramago.js",
+      "enabled": true,
+      "contentLanguage": ["es"]
+    }
+  ]
+}
