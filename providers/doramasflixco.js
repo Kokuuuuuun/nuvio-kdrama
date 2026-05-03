@@ -1,6 +1,6 @@
 /**
- * doramasflix - Built from src/doramasflix/
- * Generated: 2026-05-05T21:37:35.866Z
+ * doramasflixco - Built from src/doramasflixco/
+ * Generated: 2026-05-05T21:57:01.120Z
  */
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -59,41 +59,16 @@ var __async = (__this, __arguments, generator) => {
   });
 };
 
-// src/doramasflix/http.js
-var HEADERS = {
-  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-  "Accept-Language": "en-US,en;q=0.5",
-  "Connection": "keep-alive",
-  "Upgrade-Insecure-Requests": "1"
-};
-var API_HEADERS = {
-  "content-type": "application/json",
-  "user-agent": HEADERS["User-Agent"]
-};
-function fetchText(_0) {
-  return __async(this, arguments, function* (url, options = {}) {
-    console.log(`[DoramasFlix] Fetching: ${url}`);
-    const response = yield fetch(url, __spreadValues({
-      headers: __spreadValues(__spreadValues({}, HEADERS), options.headers)
-    }, options));
-    if (!response.ok) {
-      throw new Error(`HTTP error ${response.status} for ${url}`);
-    }
-    return yield response.text();
-  });
-}
-
-// src/doramasflix/extractor.js
+// src/doramasflixco/extractor.js
 var import_cheerio_without_node_native = __toESM(require("cheerio-without-node-native"));
 
-// src/doramasflix/resolvers.js
+// src/doramasflixco/resolvers.js
 var UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 function b64toString(str) {
   try {
     if (typeof atob !== "undefined")
       return atob(str);
-    return Buffer.from(str, "base64").toString("utf8");
+    return null;
   } catch (e) {
     return null;
   }
@@ -213,6 +188,77 @@ function resolveVoe(embedUrl) {
     }
   });
 }
+function resolveDood(embedUrl) {
+  return __async(this, null, function* () {
+    try {
+      console.log(`[Dood] Resolviendo: ${embedUrl}`);
+      const resp = yield fetch(embedUrl, {
+        headers: {
+          "User-Agent": UA,
+          "Referer": embedUrl,
+          "Accept": "text/html"
+        }
+      });
+      if (!resp.ok) {
+        console.log(`[Dood] HTTP error: ${resp.status}`);
+        return null;
+      }
+      const data = yield resp.text();
+      const m3u8Match = data.match(/https?:\/\/[^"'\s]+\.m3u8[^"'\s]*/i);
+      if (m3u8Match) {
+        console.log(`[Dood] URL m3u8 encontrada: ${m3u8Match[0].substring(0, 80)}...`);
+        return { url: m3u8Match[0], quality: "720p", headers: { "Referer": embedUrl } };
+      }
+      const mp4Match = data.match(/["'](https?:\/\/[^"']+\.mp4[^"']*)["']/i);
+      if (mp4Match) {
+        console.log(`[Dood] URL mp4 encontrada: ${mp4Match[1].substring(0, 80)}...`);
+        return { url: mp4Match[1], quality: "720p", headers: { "Referer": embedUrl } };
+      }
+      console.log("[Dood] No se encontr\xF3 URL");
+      return null;
+    } catch (err) {
+      console.log(`[Dood] Error: ${err.message}`);
+      return null;
+    }
+  });
+}
+function resolveFilemoon(embedUrl) {
+  return __async(this, null, function* () {
+    try {
+      console.log(`[Filemoon] Resolviendo: ${embedUrl}`);
+      const resp = yield fetch(embedUrl, {
+        headers: {
+          "User-Agent": UA,
+          "Referer": "https://doramasflix.co/",
+          "Accept": "text/html"
+        }
+      });
+      if (!resp.ok) {
+        console.log(`[Filemoon] HTTP error: ${resp.status}`);
+        return null;
+      }
+      const data = yield resp.text();
+      const m3u8Match = data.match(/https?:\/\/[^"'\s]+\.m3u8[^"'\s]*/i);
+      if (m3u8Match) {
+        console.log(`[Filemoon] URL encontrada: ${m3u8Match[0].substring(0, 80)}...`);
+        return {
+          url: m3u8Match[0],
+          quality: "720p",
+          headers: {
+            "User-Agent": UA,
+            "Referer": embedUrl,
+            "Origin": "https://filemoon.sx"
+          }
+        };
+      }
+      console.log("[Filemoon] No se encontr\xF3 URL");
+      return null;
+    } catch (err) {
+      console.log(`[Filemoon] Error: ${err.message}`);
+      return null;
+    }
+  });
+}
 function unpackEval(packed, radix, symtab) {
   const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const unbase = (str) => {
@@ -232,6 +278,65 @@ function unpackEval(packed, radix, symtab) {
     return symtab[idx] && symtab[idx] !== "" ? symtab[idx] : match;
   });
 }
+function resolveStreamwish(embedUrl) {
+  return __async(this, null, function* () {
+    var _a;
+    try {
+      console.log(`[StreamWish] Resolviendo: ${embedUrl}`);
+      const embedHost = ((_a = embedUrl.match(/^(https?:\/\/[^/]+)/)) == null ? void 0 : _a[1]) || "https://flaswish.com";
+      const resp = yield fetch(embedUrl, {
+        headers: {
+          "User-Agent": UA,
+          "Referer": "https://doramasflix.co/",
+          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+        }
+      });
+      if (!resp.ok) {
+        console.log(`[StreamWish] HTTP error: ${resp.status}`);
+        return null;
+      }
+      const data = yield resp.text();
+      const fileMatch = data.match(/file\s*:\s*["']([^"']+)["']/i);
+      if (fileMatch) {
+        let url = fileMatch[1];
+        if (url.startsWith("/"))
+          url = embedHost + url;
+        console.log(`[StreamWish] URL encontrada: ${url.substring(0, 80)}...`);
+        return { url, quality: "720p", headers: { "User-Agent": UA, "Referer": embedHost + "/" } };
+      }
+      const packMatch = data.match(
+        /eval\(function\(p,a,c,k,e,[a-z]\)\{[^}]+\}\s*\('([\s\S]+?)',\s*(\d+),\s*(\d+),\s*'([\s\S]+?)'\.split\('\|'\)/
+      );
+      if (packMatch) {
+        const unpacked = unpackEval(packMatch[1], parseInt(packMatch[2]), packMatch[4].split("|"));
+        const objMatch = unpacked.match(/\{[^{}]*"hls[234]"\s*:\s*"([^"]+)"[^{}]*\}/);
+        if (objMatch) {
+          try {
+            const normalized = objMatch[0].replace(/(\w+)\s*:/g, '"$1":');
+            const obj = JSON.parse(normalized);
+            const url = obj.hls4 || obj.hls3 || obj.hls2;
+            if (url) {
+              const fullUrl = url.startsWith("/") ? embedHost + url : url;
+              console.log(`[StreamWish] URL encontrada: ${fullUrl.substring(0, 80)}...`);
+              return { url: fullUrl, quality: "720p", headers: { "User-Agent": UA, "Referer": embedHost + "/" } };
+            }
+          } catch (e) {
+          }
+        }
+      }
+      const rawM3u8 = data.match(/https?:\/\/[^"'\s\\]+\.m3u8[^"'\s\\]*/i);
+      if (rawM3u8) {
+        console.log(`[StreamWish] URL encontrada: ${rawM3u8[0].substring(0, 80)}...`);
+        return { url: rawM3u8[0], quality: "720p", headers: { "User-Agent": UA, "Referer": embedHost + "/" } };
+      }
+      console.log("[StreamWish] No se encontr\xF3 URL");
+      return null;
+    } catch (err) {
+      console.log(`[StreamWish] Error: ${err.message}`);
+      return null;
+    }
+  });
+}
 function resolveVidhide(embedUrl) {
   return __async(this, null, function* () {
     var _a;
@@ -241,7 +346,7 @@ function resolveVidhide(embedUrl) {
         headers: {
           "User-Agent": UA,
           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-          "Referer": "https://doramasflix.in/"
+          "Referer": "https://doramasflix.co/"
         }
       });
       if (!resp.ok) {
@@ -299,61 +404,31 @@ function resolveVidhide(embedUrl) {
     }
   });
 }
-function resolveStreamwish(embedUrl) {
+function resolveStreamtape(embedUrl) {
   return __async(this, null, function* () {
-    var _a;
     try {
-      console.log(`[StreamWish] Resolviendo: ${embedUrl}`);
-      const embedHost = ((_a = embedUrl.match(/^(https?:\/\/[^/]+)/)) == null ? void 0 : _a[1]) || "https://flaswish.com";
+      console.log(`[StreamTape] Resolviendo: ${embedUrl}`);
       const resp = yield fetch(embedUrl, {
         headers: {
           "User-Agent": UA,
-          "Referer": "https://doramasflix.in/",
-          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+          "Referer": embedUrl,
+          "Accept": "text/html"
         }
       });
       if (!resp.ok) {
-        console.log(`[StreamWish] HTTP error: ${resp.status}`);
+        console.log(`[StreamTape] HTTP error: ${resp.status}`);
         return null;
       }
       const data = yield resp.text();
-      const fileMatch = data.match(/file\s*:\s*["']([^"']+)["']/i);
-      if (fileMatch) {
-        let url = fileMatch[1];
-        if (url.startsWith("/"))
-          url = embedHost + url;
-        console.log(`[StreamWish] URL encontrada: ${url.substring(0, 80)}...`);
-        return { url, quality: "720p", headers: { "User-Agent": UA, "Referer": embedHost + "/" } };
+      const videoMatch = data.match(/["'](https?:\/\/[^"']+\.mp4[^"']*)["']/i) || data.match(/["'](https?:\/\/[^"']+\.m3u8[^"']*)["']/i);
+      if (videoMatch) {
+        console.log(`[StreamTape] URL encontrada: ${videoMatch[1].substring(0, 80)}...`);
+        return { url: videoMatch[1], quality: "720p", headers: { "Referer": embedUrl } };
       }
-      const packMatch = data.match(
-        /eval\(function\(p,a,c,k,e,[a-z]\)\{[^}]+\}\s*\('([\s\S]+?)',\s*(\d+),\s*(\d+),\s*'([\s\S]+?)'\.split\('\|'\)/
-      );
-      if (packMatch) {
-        const unpacked = unpackEval(packMatch[1], parseInt(packMatch[2]), packMatch[4].split("|"));
-        const objMatch = unpacked.match(/\{[^{}]*"hls[234]"\s*:\s*"([^"]+)"[^{}]*\}/);
-        if (objMatch) {
-          try {
-            const normalized = objMatch[0].replace(/(\w+)\s*:/g, '"$1":');
-            const obj = JSON.parse(normalized);
-            const url = obj.hls4 || obj.hls3 || obj.hls2;
-            if (url) {
-              const fullUrl = url.startsWith("/") ? embedHost + url : url;
-              console.log(`[StreamWish] URL encontrada: ${fullUrl.substring(0, 80)}...`);
-              return { url: fullUrl, quality: "720p", headers: { "User-Agent": UA, "Referer": embedHost + "/" } };
-            }
-          } catch (e) {
-          }
-        }
-      }
-      const rawM3u8 = data.match(/https?:\/\/[^"'\s\\]+\.m3u8[^"'\s\\]*/i);
-      if (rawM3u8) {
-        console.log(`[StreamWish] URL encontrada: ${rawM3u8[0].substring(0, 80)}...`);
-        return { url: rawM3u8[0], quality: "720p", headers: { "User-Agent": UA, "Referer": embedHost + "/" } };
-      }
-      console.log("[StreamWish] No se encontr\xF3 URL");
+      console.log("[StreamTape] No se encontr\xF3 URL");
       return null;
     } catch (err) {
-      console.log(`[StreamWish] Error: ${err.message}`);
+      console.log(`[StreamTape] Error: ${err.message}`);
       return null;
     }
   });
@@ -405,38 +480,31 @@ function resolveOkru(embedUrl) {
     }
   });
 }
-function resolveFilemoon(embedUrl) {
+function resolveYourupload(embedUrl) {
   return __async(this, null, function* () {
     try {
-      console.log(`[Filemoon] Resolviendo: ${embedUrl}`);
+      console.log(`[YourUpload] Resolviendo: ${embedUrl}`);
       const resp = yield fetch(embedUrl, {
         headers: {
           "User-Agent": UA,
-          "Referer": "https://doramasflix.in/"
+          "Referer": embedUrl,
+          "Accept": "text/html"
         }
       });
       if (!resp.ok) {
-        console.log(`[Filemoon] HTTP error: ${resp.status}`);
+        console.log(`[YourUpload] HTTP error: ${resp.status}`);
         return null;
       }
       const data = yield resp.text();
-      const m3u8Match = data.match(/https?:\/\/[^"'\s]+\.m3u8[^"'\s]*/i);
-      if (m3u8Match) {
-        console.log(`[Filemoon] URL encontrada: ${m3u8Match[0].substring(0, 80)}...`);
-        return {
-          url: m3u8Match[0],
-          quality: "720p",
-          headers: {
-            "User-Agent": UA,
-            "Referer": embedUrl,
-            "Origin": "https://filemoon.sx"
-          }
-        };
+      const videoMatch = data.match(/["'](https?:\/\/[^"']+\.mp4[^"']*)["']/i) || data.match(/["'](https?:\/\/[^"']+\.m3u8[^"']*)["']/i);
+      if (videoMatch) {
+        console.log(`[YourUpload] URL encontrada: ${videoMatch[1].substring(0, 80)}...`);
+        return { url: videoMatch[1], quality: "720p", headers: { "Referer": embedUrl } };
       }
-      console.log("[Filemoon] No se encontr\xF3 URL");
+      console.log("[YourUpload] No se encontr\xF3 URL");
       return null;
     } catch (err) {
-      console.log(`[Filemoon] Error: ${err.message}`);
+      console.log(`[YourUpload] Error: ${err.message}`);
       return null;
     }
   });
@@ -449,289 +517,287 @@ function resolveVideo(embedUrl, serverName) {
     if (lowerUrl.includes("voe.sx") || lowerServer.includes("voe")) {
       return resolveVoe(embedUrl);
     }
-    if (lowerUrl.includes("do7go.com") || lowerUrl.includes("ds2play.com") || lowerUrl.includes("vidhide") || lowerServer.includes("do7go") || lowerServer.includes("ds2play") || lowerServer.includes("vidhide")) {
+    if (lowerUrl.includes("dood") || lowerServer.includes("dood")) {
+      return resolveDood(embedUrl);
+    }
+    if (lowerUrl.includes("filemoon") || lowerServer.includes("filemoon")) {
+      return resolveFilemoon(embedUrl);
+    }
+    if (lowerUrl.includes("streamwish") || lowerUrl.includes("flaswish") || lowerUrl.includes("sfastwish") || lowerServer.includes("streamwish")) {
+      return resolveStreamwish(embedUrl);
+    }
+    if (lowerUrl.includes("vidhide") || lowerUrl.includes("do7go") || lowerUrl.includes("ds2play") || lowerServer.includes("vidhide")) {
       return resolveVidhide(embedUrl);
     }
-    if (lowerUrl.includes("flaswish.com") || lowerUrl.includes("streamwish") || lowerUrl.includes("sfastwish") || lowerServer.includes("flaswish") || lowerServer.includes("streamwish") || lowerServer.includes("wish")) {
-      return resolveStreamwish(embedUrl);
+    if (lowerUrl.includes("streamtape") || lowerServer.includes("streamtape")) {
+      return resolveStreamtape(embedUrl);
     }
     if (lowerUrl.includes("ok.ru") || lowerServer.includes("okru")) {
       return resolveOkru(embedUrl);
     }
-    if (lowerUrl.includes("filemoon") || lowerServer.includes("filemoon")) {
-      return resolveFilemoon(embedUrl);
+    if (lowerUrl.includes("yourupload") || lowerServer.includes("yourupload")) {
+      return resolveYourupload(embedUrl);
     }
     console.log(`[Resolver] No resolver found for ${serverName}`);
     return null;
   });
 }
 
-// src/doramasflix/extractor.js
-var BASE_URL = "https://doramasflix.in";
+// src/doramasflixco/extractor.js
+var BASE_URL = "https://doramasflix.co";
 var TMDB_API_KEY = "925ef0627fa092898f02c1b62e78fa1b";
+var HEADERS = {
+  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+  "Accept-Language": "es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3",
+  "Accept-Encoding": "gzip, deflate, br",
+  "DNT": "1",
+  "Connection": "keep-alive",
+  "Upgrade-Insecure-Requests": "1"
+};
 function getContentNameFromTMDB(tmdbId, mediaType) {
   return __async(this, null, function* () {
     try {
       const endpoint = mediaType === "movie" ? `https://api.themoviedb.org/3/movie/${tmdbId}?api_key=${TMDB_API_KEY}` : `https://api.themoviedb.org/3/tv/${tmdbId}?api_key=${TMDB_API_KEY}`;
-      console.log(`[DoramasFlix] Fetching TMDB info: ${endpoint}`);
+      console.log(`[DoramasFlix.co] Fetching TMDB info: ${endpoint}`);
       const response = yield fetch(endpoint, {
         headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+          "User-Agent": HEADERS["User-Agent"],
           "Accept": "application/json"
         }
       });
       if (!response.ok) {
-        console.log(`[DoramasFlix] TMDB API error: ${response.status}`);
+        console.log(`[DoramasFlix.co] TMDB API error: ${response.status}`);
         return null;
       }
       const data = yield response.json();
       const name = data.title || data.name;
-      console.log(`[DoramasFlix] TMDB name: ${name}`);
+      console.log(`[DoramasFlix.co] TMDB name: ${name}`);
       return name;
     } catch (e) {
-      console.log(`[DoramasFlix] TMDB fetch error: ${e.message}`);
+      console.log(`[DoramasFlix.co] TMDB fetch error: ${e.message}`);
       return null;
     }
   });
 }
-function extractServerName(url) {
-  if (url.includes("ok.ru"))
-    return "Ok.ru";
-  if (url.includes("filemoon.sx"))
-    return "FileMoon";
-  if (url.includes("voe.sx"))
-    return "VOE";
-  if (url.includes("streamtape.com"))
-    return "StreamTape";
-  if (url.includes("streamwish") || url.includes("sfastwish"))
-    return "StreamWish";
-  if (url.includes("vidhide") || url.includes("vidhidepre"))
-    return "VidHide";
-  if (url.includes("mixdrop") || url.includes("mxdrop"))
-    return "MixDrop";
-  if (url.includes("ds2play.com"))
-    return "DS2Play";
-  if (url.includes("ds2play"))
-    return "DS2Play";
-  if (url.includes("do7go.com"))
-    return "Do7Go";
-  if (url.includes("do7go"))
-    return "Do7Go";
-  if (url.includes("flaswish.com"))
-    return "FlasWish";
-  if (url.includes("flaswish"))
-    return "FlasWish";
-  return "Unknown";
+function fetchText(_0) {
+  return __async(this, arguments, function* (url, options = {}) {
+    console.log(`[DoramasFlix.co] Fetching: ${url}`);
+    const response = yield fetch(url, __spreadValues({
+      headers: __spreadValues(__spreadValues({}, HEADERS), options.headers)
+    }, options));
+    if (!response.ok) {
+      throw new Error(`HTTP error ${response.status} for ${url}`);
+    }
+    return yield response.text();
+  });
 }
-function extractEmbedLinks(episodeUrl) {
+function searchContent(query) {
   return __async(this, null, function* () {
-    var _a, _b;
     try {
-      const html = yield fetchText(episodeUrl);
+      const searchUrl = `${BASE_URL}/search?q=${encodeURIComponent(query)}`;
+      const html = yield fetchText(searchUrl);
       const $ = import_cheerio_without_node_native.default.load(html);
-      const links = [];
-      const seen = /* @__PURE__ */ new Set();
-      $("iframe").each((i, elem) => {
-        const src = $(elem).attr("src");
-        if (src && src.includes("http") && !seen.has(src)) {
-          seen.add(src);
-          const server = extractServerName(src);
-          links.push({ url: src, server });
-          console.log(`[DoramasFlix] Found iframe: ${server} - ${src.substring(0, 60)}`);
-        }
-      });
-      const nextDataScript = $("script#__NEXT_DATA__").html();
-      if (nextDataScript) {
-        try {
-          const nextData = JSON.parse(nextDataScript);
-          const apolloState = (_b = (_a = nextData == null ? void 0 : nextData.props) == null ? void 0 : _a.pageProps) == null ? void 0 : _b.apolloState;
-          if (apolloState) {
-            Object.keys(apolloState).forEach((key) => {
-              var _a2, _b2;
-              if (key.startsWith("ROOT_QUERY.listProblems")) {
-                const problemEntry = apolloState[key];
-                if ((_b2 = (_a2 = problemEntry == null ? void 0 : problemEntry.server) == null ? void 0 : _a2.json) == null ? void 0 : _b2.link) {
-                  const serverInfo = problemEntry.server.json;
-                  const link = serverInfo.link;
-                  const serverId = serverInfo.server || "Unknown";
-                  if (link && !seen.has(link)) {
-                    seen.add(link);
-                    const serverName = extractServerName(link);
-                    links.push({ url: link, server: serverName });
-                    console.log(`[DoramasFlix] Found in __NEXT_DATA__: ${serverName} - ${link.substring(0, 60)}`);
-                  }
-                }
-                if (Array.isArray(problemEntry)) {
-                  problemEntry.forEach((problemRef) => {
-                    var _a3, _b3;
-                    if (problemRef && problemRef.id) {
-                      const problemData = apolloState[problemRef.id];
-                      if ((_b3 = (_a3 = problemData == null ? void 0 : problemData.server) == null ? void 0 : _a3.json) == null ? void 0 : _b3.link) {
-                        const serverInfo = problemData.server.json;
-                        const link = serverInfo.link;
-                        const serverName = extractServerName(link);
-                        if (link && !seen.has(link)) {
-                          seen.add(link);
-                          links.push({ url: link, server: serverName });
-                          console.log(`[DoramasFlix] Found in __NEXT_DATA__ (ref): ${serverName} - ${link.substring(0, 60)}`);
-                        }
-                      }
-                    }
-                  });
-                }
-              }
-            });
-          }
-        } catch (e) {
-          console.log("[DoramasFlix] Error parsing __NEXT_DATA__:", e.message);
-        }
-      }
-      $("script").each((i, elem) => {
-        const scriptContent = $(elem).html();
-        if (scriptContent) {
-          const patterns = [
-            /https?:\/\/[^\s"'`]+\.(m3u8|mp4)[^\s"'`]*/gi,
-            /["']file["']:\s*["']([^"']+\.(m3u8|mp4))["']/gi,
-            /["']src["']:\s*["']([^"']+\.(m3u8|mp4))["']/gi,
-            /["']url["']:\s*["']([^"']+\.(m3u8|mp4))["']/gi
-          ];
-          patterns.forEach((pattern) => {
-            const matches = scriptContent.match(pattern);
-            if (matches) {
-              matches.forEach((match) => {
-                const url = match.replace(/["']/g, "");
-                if (url && !seen.has(url)) {
-                  seen.add(url);
-                  const server = extractServerName(url);
-                  links.push({ url, server });
-                  console.log(`[DoramasFlix] Found in script: ${server} - ${url.substring(0, 60)}`);
-                }
-              });
-            }
+      const results = [];
+      $(".grid > div").each((i, elem) => {
+        const titleEl = $(elem).find("h3, .text-lg").first();
+        const linkEl = $(elem).find("a").first();
+        const imgEl = $(elem).find("img").first();
+        const typeEl = $(elem).find(".text-xs").first();
+        const yearEl = $(elem).find(".text-sm").first();
+        if (titleEl.length && linkEl.length) {
+          const href = linkEl.attr("href");
+          const slug = href ? href.replace(/^\//, "").split("/").pop() : null;
+          results.push({
+            slug,
+            title: titleEl.text().trim(),
+            url: href,
+            image: imgEl.attr("src"),
+            type: typeEl.text().trim(),
+            year: yearEl.text().trim()
           });
         }
       });
-      return links;
+      console.log(`[DoramasFlix.co] Found ${results.length} search results`);
+      return results;
     } catch (e) {
-      console.log("[DoramasFlix] Error extrayendo links:", e.message);
+      console.log(`[DoramasFlix.co] Search error: ${e.message}`);
       return [];
     }
   });
 }
-function searchDramaAPI(query) {
+function getDoramaDetails(slug) {
   return __async(this, null, function* () {
-    var _a, _b, _c, _d;
     try {
-      const response = yield fetch("https://doramasflix-api.dracot16.workers.dev/", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-        },
-        body: JSON.stringify({
-          operationName: "searchAll",
-          variables: { input: query.replace(/[+]/g, " ") },
-          query: `query searchAll($input: String!) {
-  searchDorama(input: $input, limit: 32) { _id slug name name_es __typename }
-  searchMovie(input: $input, limit: 32) { _id name name_es slug __typename }
-}`
-        })
+      const url = `${BASE_URL}/doramas/${slug}`;
+      const html = yield fetchText(url);
+      const $ = import_cheerio_without_node_native.default.load(html);
+      const title = $("h1, .text-2xl").first().text().trim();
+      const description = $(".text-base, p").first().text().trim();
+      const image = $('img[alt*="poster"]').first().attr("src") || $("img").first().attr("src");
+      const year = $(".text-sm").first().text().trim();
+      const status = $(".text-xs").first().text().trim();
+      const episodes = [];
+      $(".grid .gap-4 a").each((i, elem) => {
+        const epLink = $(elem).attr("href");
+        const epImg = $(elem).find("img");
+        if (epLink) {
+          const epSlug = epLink.replace(/^\//, "").split("/").pop();
+          episodes.push({
+            slug: epSlug,
+            title: epImg.attr("alt") || epSlug,
+            url: epLink,
+            image: epImg.attr("src")
+          });
+        }
       });
-      if (!response.ok) {
-        console.log(`[DoramasFlix] API request failed: ${response.status}`);
-        return null;
-      }
-      const data = yield response.json();
-      if (((_b = (_a = data == null ? void 0 : data.data) == null ? void 0 : _a.searchDorama) == null ? void 0 : _b.length) > 0) {
-        return {
-          id: data.data.searchDorama[0]._id,
-          slug: data.data.searchDorama[0].slug,
-          type: "dorama"
-        };
-      }
-      if (((_d = (_c = data == null ? void 0 : data.data) == null ? void 0 : _c.searchMovie) == null ? void 0 : _d.length) > 0) {
-        return {
-          id: data.data.searchMovie[0]._id,
-          slug: data.data.searchMovie[0].slug,
-          type: "movie"
-        };
-      }
-      return null;
+      return {
+        slug,
+        title,
+        description,
+        image,
+        year,
+        status,
+        episodes
+      };
     } catch (e) {
-      console.log("[DoramasFlix] Error b\xFAsqueda:", e.message);
+      console.log(`[DoramasFlix.co] Details error: ${e.message}`);
       return null;
     }
   });
 }
+function extractEmbedLinks(episodeSlug) {
+  return __async(this, null, function* () {
+    try {
+      const url = `${BASE_URL}/capitulos/${episodeSlug}`;
+      const html = yield fetchText(url);
+      const $ = import_cheerio_without_node_native.default.load(html);
+      const links = [];
+      const seen = /* @__PURE__ */ new Set();
+      const iframe = $("iframe").first();
+      if (iframe.length) {
+        const src = iframe.attr("src");
+        if (src && !seen.has(src)) {
+          seen.add(src);
+          const server = extractServerName(src);
+          links.push({ url: src, server });
+          console.log(`[DoramasFlix.co] Found iframe: ${server} - ${src.substring(0, 60)}`);
+        }
+      }
+      $('.button, [class*="server"]').each((i, elem) => {
+        const onclick = $(elem).attr("onclick");
+        const dataSrc = $(elem).attr("data-src") || $(elem).attr("data-url");
+        let embedUrl = null;
+        if (dataSrc) {
+          embedUrl = dataSrc;
+        } else if (onclick) {
+          const match = onclick.match(/['"](https?:\/\/[^'"]+)['"]/);
+          if (match)
+            embedUrl = match[1];
+        }
+        if (embedUrl && !seen.has(embedUrl)) {
+          seen.add(embedUrl);
+          const server = extractServerName(embedUrl);
+          links.push({ url: embedUrl, server });
+          console.log(`[DoramasFlix.co] Found server button: ${server} - ${embedUrl.substring(0, 60)}`);
+        }
+      });
+      return links;
+    } catch (e) {
+      console.log(`[DoramasFlix.co] Extract embed error: ${e.message}`);
+      return [];
+    }
+  });
+}
+function extractServerName(url) {
+  if (url.includes("voe.sx"))
+    return "VOE";
+  if (url.includes("dood"))
+    return "Dood";
+  if (url.includes("filemoon"))
+    return "Filemoon";
+  if (url.includes("streamwish") || url.includes("flaswish"))
+    return "StreamWish";
+  if (url.includes("vidhide") || url.includes("do7go") || url.includes("ds2play"))
+    return "VidHide";
+  if (url.includes("streamtape"))
+    return "StreamTape";
+  if (url.includes("ok.ru"))
+    return "OkRu";
+  if (url.includes("yourupload"))
+    return "YourUpload";
+  return "Unknown";
+}
 function extractStreams(tmdbId, mediaType, season, episode) {
   return __async(this, null, function* () {
     try {
-      console.log(`[DoramasFlix] Extracting streams for: ${mediaType} ${tmdbId} S${season}E${episode}`);
+      console.log(`[DoramasFlix.co] Extracting streams for: ${mediaType} ${tmdbId} S${season}E${episode}`);
       const contentName = yield getContentNameFromTMDB(tmdbId, mediaType);
       if (!contentName) {
-        console.log(`[DoramasFlix] Could not get name from TMDB for: ${tmdbId}`);
+        console.log(`[DoramasFlix.co] Could not get name from TMDB for: ${tmdbId}`);
         return [];
       }
-      const searchResult = yield searchDramaAPI(contentName);
-      if (!searchResult) {
-        console.log(`[DoramasFlix] No search results for: ${contentName}`);
+      const searchResults = yield searchContent(contentName);
+      if (!searchResults.length) {
+        console.log(`[DoramasFlix.co] No search results for: ${contentName}`);
         return [];
       }
-      console.log(`[DoramasFlix] Found: ${searchResult.slug} (type: ${searchResult.type})`);
-      let episodeUrl;
-      if (mediaType === "movie") {
-        episodeUrl = `${BASE_URL}/ver/${searchResult.slug}`;
-      } else {
-        episodeUrl = `${BASE_URL}/episodios/${searchResult.slug}-${season}x${episode}`;
+      const result = searchResults[0];
+      console.log(`[DoramasFlix.co] Found: ${result.slug} (${result.title})`);
+      const details = yield getDoramaDetails(result.slug);
+      if (!details) {
+        console.log(`[DoramasFlix.co] Could not get details for: ${result.slug}`);
+        return [];
       }
-      console.log(`[DoramasFlix] Episode URL: ${episodeUrl}`);
-      const embedLinks = yield extractEmbedLinks(episodeUrl);
-      console.log(`[DoramasFlix] Found ${embedLinks.length} embed links`);
+      const episodeSlug = `${result.slug}-${season}x${episode}`;
+      console.log(`[DoramasFlix.co] Episode slug: ${episodeSlug}`);
+      const embedLinks = yield extractEmbedLinks(episodeSlug);
+      console.log(`[DoramasFlix.co] Found ${embedLinks.length} embed links`);
       if (!embedLinks.length) {
         return [];
       }
       const streams = [];
       for (const embed of embedLinks) {
-        console.log(`[DoramasFlix] Resolving ${embed.server}: ${embed.url}`);
+        console.log(`[DoramasFlix.co] Resolving ${embed.server}: ${embed.url}`);
         try {
           const resolved = yield resolveVideo(embed.url, embed.server);
           if (resolved && resolved.url) {
             streams.push({
-              name: "DoramasFlix",
+              name: "DoramasFlix.co",
               title: `[${embed.server}] ${resolved.quality || "720p"}`,
               url: resolved.url,
               quality: resolved.quality || "720p",
               headers: resolved.headers || {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "User-Agent": HEADERS["User-Agent"],
                 "Referer": embed.url
               }
             });
-            console.log(`[DoramasFlix] \u2705 Resolved: ${embed.server} -> ${resolved.url.substring(0, 60)}...`);
+            console.log(`[DoramasFlix.co] \u2705 Resolved: ${embed.server} -> ${resolved.url.substring(0, 60)}...`);
           } else {
-            console.log(`[DoramasFlix] \u274C Could not resolve: ${embed.server}`);
+            console.log(`[DoramasFlix.co] \u274C Could not resolve: ${embed.server}`);
           }
         } catch (err) {
-          console.log(`[DoramasFlix] \u274C Error resolving ${embed.server}: ${err.message}`);
+          console.log(`[DoramasFlix.co] \u274C Error resolving ${embed.server}: ${err.message}`);
         }
       }
-      console.log(`[DoramasFlix] Final streams: ${streams.length}`);
+      console.log(`[DoramasFlix.co] Final streams: ${streams.length}`);
       return streams;
     } catch (error) {
-      console.error(`[DoramasFlix] Extraction error: ${error.message}`);
+      console.error(`[DoramasFlix.co] Extraction error: ${error.message}`);
       return [];
     }
   });
 }
 
-// src/doramasflix/index.js
+// src/doramasflixco/index.js
 function getStreams(tmdbId, mediaType, season, episode) {
   return __async(this, null, function* () {
     try {
-      console.log(`[DoramasFlix] Request: ${mediaType} ${tmdbId} S${season}E${episode}`);
+      console.log(`[DoramasFlix.co] Request: ${mediaType} ${tmdbId} S${season}E${episode}`);
       const streams = yield extractStreams(tmdbId, mediaType, season, episode);
       return streams;
     } catch (error) {
-      console.error(`[DoramasFlix] Error: ${error.message}`);
+      console.error(`[DoramasFlix.co] Error: ${error.message}`);
       return [];
     }
   });

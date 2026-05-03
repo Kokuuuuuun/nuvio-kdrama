@@ -1,12 +1,39 @@
 {
-  "name": "nuvio-kdramas",
-  "version": "1.0.0",
-  "description": "Plugin para Nuvio con múltiples fuentes de K-Dramas en español",
-  "main": "manifest.json",
-  "scripts": {
-    "test": "echo \"Test providers\""
-  },
-  "keywords": ["nuvio", "kdramas", "doramas", "streaming", "español"],
-  "author": "Nuvio KDramas Plugin",
-  "license": "MIT"
+    "name": "nuvio-providers",
+    "version": "1.0.0",
+    "description": "Providers for Nuvio Streaming",
+    "scripts": {
+        "build": "node build.js",
+        "build:watch": "nodemon --watch src -e js,json --exec 'node build.js'",
+        "build:provider": "node build.js",
+        "start": "node server.js"
+    },
+    "devDependencies": {
+        "cheerio": "^1.1.2",
+        "cheerio-without-node-native": "^0.20.2",
+        "esbuild": "^0.20.0",
+        "nodemon": "^3.0.0"
+    },
+    "keywords": [
+        "nuvio",
+        "streaming",
+        "providers"
+    ],
+    "license": "GPL-3.0",
+    "dependencies": {
+        "axios": "^1.14.0",
+        "crypto-js": "^4.2.0",
+        "express": "^5.2.1"
+    },
+    "main": "build.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Kokuuuuuun/nuvio-kdrama.git"
+    },
+    "author": "",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/Kokuuuuuun/nuvio-kdrama/issues"
+    },
+    "homepage": "https://github.com/Kokuuuuuun/nuvio-kdrama#readme"
 }

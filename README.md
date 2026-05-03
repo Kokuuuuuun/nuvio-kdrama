@@ -1,60 +1,47 @@
-# KDramas Providers para Nuvio
+# Doramas Nuvio Providers
 
-Plugin para Nuvio con múltiples fuentes de K-Dramas (doramas) con subtítulos en español.
+Providers para Nuvio con contenido de Doramas Coreanos, Chinos, Japoneses y Asiáticos en Español.
 
-## Fuentes incluidas
+Resolvers avanzados implementados desde cero con soporte para múltiples servidores de video.
 
-| Provider | Sitio | Descripción |
-|----------|-------|-------------|
-| doramasflix | doramasflix.in | K-Dramas, C-Dramas, J-Dramas y doramas tailandeses |
-| doramasmp4 | doramasmp4.io | Doramas online en MP4 gratis |
-| pandrama | pandrama.tv | Dramas asiáticos en Español Latino y Subtitulado |
-| doramasyt | doramasyt.com | Doramas online gratis en HD |
-| estrenosdoramas | estrenosdoramas.top | Últimos estrenos de doramas |
-| doramasvip | doramasvip.com | Doramas exclusivos con subtítulos |
-| doramasgo | doramasgo.com | Ver doramas online |
-| midoramafavorito | midoramafavorito.com | App para ver doramas en español |
+## ✅ Provider Activo
 
-## Instalación en Nuvio
+### DoramasFlix (doramasflix.in)
+- **Estado:** Funcional
+- **Resolvers:** VOE, StreamWish, VidHide/Do7Go, OkRu, Filemoon
+- **Búsqueda:** Usa TMDB API para obtener nombre exacto
+- **Versión:** 1.2.0
 
-1. Abrir **Nuvio** > **Configuración** > **Plugins**
-2. Agregar la URL de este repositorio:
-   ```
-   https://raw.githubusercontent.com/TU_USUARIO/nuvio-kdramas/main
-   ```
-3. Actualizar y habilitar los providers que desees
+##  Roadmap / Próximos Pasos
 
-## Estructura del Proyecto
+- [ ] **DoramasVIP** - Implementar provider con estructura similar
+- [ ] **DoramasMP4** - Implementar provider de MP4
+- [ ] **DoramasFlix.co** - Implementar versión del dominio .co
+- [ ] **Mejorar resolvers** - Agregar más servidores y patrones
+- [ ] **Testing** - Pruebas exhaustivas en diferentes dispositivos
+
+## 🚀 Cargar en Nuvio
+
+### Usar desde GitHub (Raw)
+
+Añade esta URL en Nuvio → Settings → Developer → Plugin Tester:
 
 ```
-nuvio-kdramas/
-├── providers/              # Archivos de providers
-│   ├── doramasflix.js
-│   ├── doramasmp4.js
-│   ├── pandrama.js
-│   ├── doramasyt.js
-│   ├── estrenosdoramas.js
-│   ├── doramasvip.js
-│   ├── doramasgo.js
-│   └── midoramafavorito.js
-├── manifest.json           # Registro de providers
-└── README.md
+https://raw.githubusercontent.com/Kokuuuuuun/Nuvio-Kdramas-Providers-Latino/main/manifest.json
 ```
 
-## Notas Importantes
+## 🛠️ Resolvers Implementados
 
-- Los sitios de doramas modernos usan JavaScript para renderizar contenido
-- Algunos providers pueden requerir ajustes según cambios en los sitios
-- Las fuentes están especializadas en K-Dramas, C-Dramas, J-Dramas y doramas tailandeses
-- Todo el contenido viene con subtítulos en español o latino
+| Servidor | Técnica | Estado |
+|---|---|---|
+| VOE | Decodificación específica + base64 | ✅ Funcional |
+| StreamWish/FlasWish | Packed JS + hls extraction | ⚠️ No testeado |
+| VidHide/Do7Go/DS2Play | Unpacker P,A,C,K,E,R | ⚠️ No testeado |
+| OkRu | JSON parsing múltiples calidades | ✅ Funcional |
+| Filemoon | Búsqueda directa m3u8 | ⚠️ No testeado |
 
-## Contribuir
+## 📝 Notas Técnicas
 
-Si conoces más sitios de doramas que funcionen, puedes agregarlos modificando el archivo correspondiente en `providers/`.
-
-## Disclaimer
-
-- **No se aloja contenido** en este repositorio
-- Los providers obtienen contenido disponible públicamente
-- El usuario es responsable de cumplir con las leyes locales
-- Para temas de DMCA, contactar a los alojadores de contenido
+- Usa `fetch` nativo (compatible con Nuvio/Hermes)
+- Cloudflare Worker para proxy de API GraphQL
+- Build system basado en esbuild
