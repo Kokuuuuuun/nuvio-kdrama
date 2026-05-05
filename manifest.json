@@ -13,18 +13,6 @@
       "enabled": true,
       "contentLanguage": ["es"],
       "formats": ["m3u8", "mp4"]
-    },
-    {
-      "id": "doramasflixco",
-      "name": "DoramasFlix.co",
-      "description": "DoramasFlix.co - Contenido de Doramas Coreanos, Chinos y Japoneses en Español",
-      "version": "1.0.0",
-      "author": "Kokuuuuuun",
-      "supportedTypes": ["movie", "tv"],
-      "filename": "providers/doramasflixco.js",
-      "enabled": true,
-      "contentLanguage": ["es"],
-      "formats": ["m3u8", "mp4"]
     }
   ]
 }
