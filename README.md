@@ -24,7 +24,7 @@ Resolvers avanzados implementados desde cero con soporte para múltiples servido
 
 ### Usar desde GitHub (Raw)
 
-Añade esta URL en Nuvio → Settings → Developer → Plugin Tester:
+Añade esta URL en Nuvio → Settings → Plugins:
 
 ```
 https://raw.githubusercontent.com/Kokuuuuuun/Nuvio-Kdramas-Providers-Latino/main/manifest.json
