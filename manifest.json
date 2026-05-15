@@ -1,6 +1,6 @@
 {
   "name": "Doramas Nuvio Providers",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "scrapers": [
     {
       "id": "doramasflix",
@@ -10,6 +10,18 @@
       "author": "Kokuuuuuun",
       "supportedTypes": ["movie", "tv"],
       "filename": "providers/doramasflix.js",
+      "enabled": true,
+      "contentLanguage": ["es"],
+      "formats": ["m3u8", "mp4"]
+    },
+    {
+      "id": "vimeus",
+      "name": "Vimeus",
+      "description": "Películas, series y anime en Latino/Español vía Vimeus. Múltiples servidores (VOE, StreamWish, Filemoon, etc).",
+      "version": "1.0.0",
+      "author": "Kokuuuuuun",
+      "supportedTypes": ["movie", "tv"],
+      "filename": "providers/vimeus.js",
       "enabled": true,
       "contentLanguage": ["es"],
       "formats": ["m3u8", "mp4"]
